@@ -27,7 +27,7 @@ def extract(data):
 def process_missing(data, min_threshold = 5, max_threshold = 20):
     handle_low_null(data, min_threshold)
     handle_med_null(data, min_threshold, max_threshold)
-    handle_high_null(data, max_threshold)
+    data = handle_high_null(data, max_threshold)
 
 def preprocess(data):
     extract(data)
