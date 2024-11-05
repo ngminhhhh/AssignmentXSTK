@@ -1,5 +1,5 @@
-from utils.main_preprocess import *
-from utils.show_data_func import *
+from utils.preProcess import *
+from utils.showData import *
 
 if __name__ == "__main__":
     data = pd.read_csv("All_GPUs.csv")

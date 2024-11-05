@@ -1,6 +1,6 @@
-from utils.preprocess.extract_func import *
-from utils.preprocess.handle_missing import *
-from utils.show_data_func import *
+from utils.preprocess.extractFunction import *
+from utils.preprocess.handleMissing import *
+from utils.showData import *
 
 def extract(data):
     split_resolution(data, 'Best_Resolution')
