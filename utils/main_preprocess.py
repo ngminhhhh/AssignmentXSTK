@@ -25,9 +25,15 @@ def extract(data):
     data['Release_Date'] = pd.to_datetime(data['Release_Date'], errors='coerce')
 
 def process_missing(data, min_threshold = 5, max_threshold = 75):
-    data = handle_low_null(data, min_threshold)
-    data = handle_med_null(data, min_threshold, max_threshold)
-    data = handle_high_null(data, max_threshold)
+    null_percent = data.isnull().mean() * 100
+
+    low_percent_null = null_percent[null_percent < min_threshold]
+    med_percent_null = null_percent[(null_percent >= min_threshold) & (null_percent <= max_threshold)]
+    high_percent_null = null_percent[null_percent > max_threshold]
+
+    handle_low_null(data, low_percent_null)
+    data = handle_med_null(data, med_percent_null)
+    data = handle_high_null(data, high_percent_null)
 
 def preprocess(data):
     extract(data)

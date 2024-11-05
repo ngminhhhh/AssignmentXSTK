@@ -1,17 +1,10 @@
-from sklearn.linear_model import Ridge
 import pandas as pd
 
-def handle_low_null(data, threshold):
-    null_percent = data.isnull().mean() * 100
-    low_percent_null = null_percent[null_percent < threshold]
+def handle_low_null(data, low_percent_null):
     data = data.dropna(subset=low_percent_null.index, inplace=True)
-    return data
 
-
-def handle_med_null(data, min_threshold, max_threshold):
-    null_percent = data.isnull().mean() * 100
-    med_percent_null = null_percent[(null_percent >= min_threshold) & (null_percent <= max_threshold)]
-
+    
+def handle_med_null(data, med_percent_null):
     for col in med_percent_null.index:
         
         if data[col].dtype in ['float64', 'int64']:
@@ -25,11 +18,9 @@ def handle_med_null(data, min_threshold, max_threshold):
     return data
 
 
-def handle_high_null(data, threshold):
-    null_percent = data.isnull().mean() * 100
-    high_percent_null = null_percent[null_percent > threshold] 
-    
-    data.drop(subset=high_percent_null.index, inplace = True)
+def handle_high_null(data, high_percent_null):
+    for col in high_percent_null.index:
+        data.pop(col)
 
     return data
 
