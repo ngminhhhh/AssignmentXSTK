@@ -20,8 +20,16 @@ def handle_med_null(data, min_threshold, max_threshold):
                 data[col] = data[col].fillna(data[col].median())
         else:
             data[col] = data[col].fillna(data[col].mode()[0])
+        
+    return data
 
 
 def handle_high_null(data, threshold):
+    null_percent = data.isnull().mean() * 100
+    high_percent_null = null_percent[null_percent > threshold] 
+    
+    for col in high_percent_null.index:
+        data.pop(col)
+
     return data
 
