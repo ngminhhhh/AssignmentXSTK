@@ -5,6 +5,7 @@ def handle_low_null(data, threshold):
     null_percent = data.isnull().mean() * 100
     low_percent_null = null_percent[null_percent < threshold]
     data = data.dropna(subset=low_percent_null.index, inplace=True)
+    return data
 
 
 def handle_med_null(data, min_threshold, max_threshold):
@@ -28,8 +29,7 @@ def handle_high_null(data, threshold):
     null_percent = data.isnull().mean() * 100
     high_percent_null = null_percent[null_percent > threshold] 
     
-    for col in high_percent_null.index:
-        data.pop(col)
+    data.drop(subset=high_percent_null.index, inplace = True)
 
     return data
 
