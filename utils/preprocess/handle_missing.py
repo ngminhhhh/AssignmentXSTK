@@ -15,12 +15,9 @@ def handle_med_null(data, med_percent_null):
         else:
             data[col] = data[col].fillna(data[col].mode()[0])
         
-    return data
 
 
 def handle_high_null(data, high_percent_null):
     for col in high_percent_null.index:
         data.pop(col)
-
-    return data
 
